@@ -85,4 +85,8 @@ SELECT match_id, fixture, base_ticket_price FROM Matches WHERE tournament_catego
 
 
 -- 2. Search for all users whose full names start with 'Tanvir' or contain the phrase 'Haque' (case-insensitive)
-SELECT user_id, full_name, email FROM Users WHERE full_name LIKE 'Tanvir%' OR full_name LIKE '%Haque%';
+SELECT user_id, full_name, email FROM Users WHERE full_name ILIKE 'Tanvir%' OR full_name ILIKE '%Haque%';
+
+
+-- 3. Retrieve all booking records where the payment status is missing (NULL), replacing the empty result with 'Action Required'.
+SELECT booking_id, user_id, match_id, COALESCE(payment_status, 'Action Required') AS systematic_status FROM Bookings WHERE payment_status IS NULL;
